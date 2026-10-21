@@ -1,0 +1,60 @@
+# S_OBI_middle
+
+# single just go back, we swap bits in vector to get more twists into the graph
+N1BEG[0|1|2|3],S1END[3|2|1|0]
+
+# The MID are half way in so they get connected to the longest patch (S2BEG)
+# The END are longest so get on the cascading begin (S2BEGb)
+# on top we twist wire indexes for more entropy
+N2BEG[0|1|2|3|4|5|6|7],S2MID[7|6|5|4|3|2|1|0]
+N2BEGb[0|1|2|3|4|5|6|7],S2END[7|6|5|4|3|2|1|0]
+
+# We swap bits in vector to get more twists into the graph and this will automatically connect the longest input to the shortest output etc.
+N4BEG[0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15],S4END[15|14|13|12|11|10|9|8|7|6|5|4|3|2|1|0]
+
+NN4BEG[0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15],SS4END[15|14|13|12|11|10|9|8|7|6|5|4|3|2|1|0]
+
+Co0,GND0
+
+# Inputs
+[REQ|REQ],[GND0|VCC0]
+[REQ|REQ],[S2MID0|S2END0]
+[REQ|REQ],[left2middle_REQ0|right2middle_REQ0]
+
+[WE|WE],[GND0|VCC0]
+[WE|WE],[S2MID1|S2END1]
+[WE|WE],[left2middle_WE0|right2middle_WE0]
+
+[BE3|BE2|BE1|BE0],{4}GND0
+[BE3|BE2|BE1|BE0],{4}VCC0
+[BE3|BE2|BE1|BE0],S1END[3|2|1|0]
+[BE3|BE2|BE1|BE0],[S2MID7|S2MID6|S2END7|S2END6]
+[BE3|BE2|BE1|BE0],left2middle_BE[3|2|1|0]
+[BE3|BE2|BE1|BE0],right2middle_BE[3|2|1|0]
+
+ADDR[23|22|21|20],{4}GND0
+ADDR[23|22|21|20],{4}VCC0
+ADDR[23|22|21|20],S4END[15|14|13|12]
+ADDR[23|22|21|20],SS4END[15|14|13|12]
+ADDR[19|18|17|16|15|14|13|12|11|10],right2middle_ADDR[9|8|7|6|5|4|3|2|1|0]
+ADDR[9|8|7|6|5|4|3|2|1|0],left2middle_ADDR[9|8|7|6|5|4|3|2|1|0]
+
+WDATA[31|30|29|28|27|26|25|24|23|22|21|20],{12}GND0
+WDATA[31|30|29|28|27|26|25|24|23|22|21|20],{12}VCC0
+WDATA[31|30|29|28|27|26|25|24|23|22|21|20],S4END[11|10|9|8|7|6|5|4|3|2|1|0] 
+WDATA[31|30|29|28|27|26|25|24|23|22|21|20],SS4END[11|10|9|8|7|6|5|4|3|2|1|0]
+WDATA[9|8|7|6|5|4|3|2|1|0],left2middle_WDATA[9|8|7|6|5|4|3|2|1|0]
+WDATA[19|18|17|16|15|14|13|12|11|10],right2middle_WDATA[9|8|7|6|5|4|3|2|1|0]
+
+# Outputs
+[N1BEG0|N2BEG0|N2BEGb0|N4BEG12|NN4BEG12],{5}GNT
+middle2left_GNT0,GNT
+middle2right_GNT0,GNT
+
+[N1BEG1|N2BEG1|N2BEGb1|N4BEG13|NN4BEG13],{5}RVALID
+middle2left_RVALID0,RVALID
+middle2right_RVALID0,RVALID
+
+[N4BEG11|N4BEG10|N4BEG9|N4BEG8|N4BEG7|N4BEG6|N4BEG5|N4BEG4|N4BEG3|N4BEG2|N4BEG1|N4BEG0],[RDATA31|RDATA30|RDATA29|RDATA28|RDATA27|RDATA26|RDATA25|RDATA24|RDATA23|RDATA22|RDATA21|RDATA20]
+[middle2left_RDATA9|middle2left_RDATA8|middle2left_RDATA7|middle2left_RDATA6|middle2left_RDATA5|middle2left_RDATA4|middle2left_RDATA3|middle2left_RDATA2|middle2left_RDATA1|middle2left_RDATA0],[RDATA9|RDATA8|RDATA7|RDATA6|RDATA5|RDATA4|RDATA3|RDATA2|RDATA1|RDATA0]
+[middle2right_RDATA9|middle2right_RDATA8|middle2right_RDATA7|middle2right_RDATA6|middle2right_RDATA5|middle2right_RDATA4|middle2right_RDATA3|middle2right_RDATA2|middle2right_RDATA1|middle2right_RDATA0],[RDATA19|RDATA18|RDATA17|RDATA16|RDATA15|RDATA14|RDATA13|RDATA12|RDATA11|RDATA10]

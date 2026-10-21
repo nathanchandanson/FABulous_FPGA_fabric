@@ -1,0 +1,54 @@
+# S_XIF_middle
+
+# single just go back, we swap bits in vector to get more twists into the graph
+N1BEG[0|1|2|3],S1END[3|2|1|0]
+
+# The MID are half way in so they get connected to the longest patch (S2BEG)
+# The END are longest so get on the cascading begin (S2BEGb)
+# on top we twist wire indexes for more entropy
+N2BEG[0|1|2|3|4|5|6|7],S2MID[7|6|5|4|3|2|1|0]
+N2BEGb[0|1|2|3|4|5|6|7],S2END[7|6|5|4|3|2|1|0]
+
+# We swap bits in vector to get more twists into the graph and this will automatically connect the longest input to the shortest output etc.
+N4BEG[0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15],S4END[15|14|13|12|11|10|9|8|7|6|5|4|3|2|1|0]
+
+NN4BEG[0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15],SS4END[15|14|13|12|11|10|9|8|7|6|5|4|3|2|1|0]
+
+Co0,GND0
+
+### Commit interface ###
+# commit_valid
+N2BEGb[0|1|2|3],{4}COMMIT_VALID
+NN4BEG[4|5|6|7],{4}COMMIT_VALID
+
+# commit
+N2BEGb[4|5|6|7],COMMIT_ID[0|1|2|3]
+N4BEG[0|1|2|3],COMMIT_ID[0|1|2|3]
+NN4BEG[0|1|2|3],COMMIT_ID[0|1|2|3]
+
+N2BEG[0|1|2|3],{4}COMMIT_KILL
+N4BEG[4|5|6|7],{4}COMMIT_KILL
+
+### Result interface ###
+# result_valid
+{4}RESULT_VALID,[GND0|VCC0|S2MID6|S2MID7]
+
+# result_ready
+N1BEG[0|1|2|3],{4}RESULT_READY
+N2BEGb[4|5|6|7],{4}RESULT_READY
+
+# result
+RESULT_ID[0|1|2|3],{4}GND0
+RESULT_ID[0|1|2|3],{4}VCC0
+RESULT_ID[0|1|2|3],S1END[0|1|2|3]
+RESULT_ID[0|1|2],S2END[0|1|2]
+
+RESULT_DATA[0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15],S4END[0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15]
+RESULT_DATA[16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31],SS4END[0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15]
+
+RESULT_RD[0|1|2|3|4],{5}GND0
+RESULT_RD[0|1|2|3|4],{5}VCC0
+RESULT_RD[0|1|2|3|4],S2MID[0|1|2|3|4]
+RESULT_RD[0|1|2|3|4],S2END[3|4|5|6|7]
+
+{3}RESULT_WE,[GND0|VCC0|S2MID5]

@@ -1,0 +1,8 @@
+# Fabric backup files
+Fabric/**/*.bak
+
+# Compiled user designs
+user_design/**
+!user_design/**/
+!user_design/**/*.v
+!user_design/**/*.sv

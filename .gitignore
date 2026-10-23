@@ -6,3 +6,6 @@ user_design/**
 !user_design/**/
 !user_design/**/*.v
 !user_design/**/*.sv
+
+# FABulous history
+.FABulous/.fabulous_history
